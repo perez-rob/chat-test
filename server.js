@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 
-const server = express()
+const server = app
   .use((req, res) => res.sendFile("/index.html", { root: __dirname }))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
