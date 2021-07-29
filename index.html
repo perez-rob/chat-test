@@ -1,62 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chat App</title>
-  <!-- <script defer src="http://localhost:3000/socket.io/socket.io.js"></script> -->
-  <script src="https://serene-crag-38235.herokuapp.com/socket.io/socket.io.js"></script>
-  
-</head>
-<body>
-  <form id="send-container">
-    <input type="text" id="message-input">
-    <button type="submit" id="send-button">Send</button>
-  </form>
-  <div id="message-container"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat App</title>
+    <!-- <script defer src="http://localhost:3000/socket.io/socket.io.js"></script> -->
+    <script src="https://arcane-lake-72409.herokuapp.com/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <form id="send-container">
+      <input type="text" id="message-input" />
+      <button type="submit" id="send-button">Send</button>
+    </form>
+    <div id="message-container"></div>
 
-  <script>
-    // const io = require("socket.io-client");
-// const socket = io('http://localhost:3000');
-const socket = io();
-const messageForm = document.getElementById('send-container');
-const messageInput = document.getElementById('message-input');
-const messageContainer = document.getElementById('message-container');
-console.log('TEST')
+    <script>
+      // const io = require("socket.io-client");
+      // const socket = io('http://localhost:3000');
+      const socket = io();
+      const messageForm = document.getElementById("send-container");
+      const messageInput = document.getElementById("message-input");
+      const messageContainer = document.getElementById("message-container");
+      console.log("TEST");
 
-const appendMessage = (message) => {
-  const messageElement = document.createElement('div');
-  messageElement.innerText = message;
-  messageContainer.append(messageElement);
-}
-const userName = prompt('What is your name?');
-appendMessage('You Joined Chat');
-socket.emit('new-user', userName)
+      const appendMessage = (message) => {
+        const messageElement = document.createElement("div");
+        messageElement.innerText = message;
+        messageContainer.append(messageElement);
+      };
+      const userName = prompt("What is your name?");
+      appendMessage("You Joined Chat");
+      socket.emit("new-user", userName);
 
-// socket.auth = { username: 'Bob' }
+      // socket.auth = { username: 'Bob' }
 
-socket.on('chat-message', data => {
-  appendMessage(`${data.userName}: ${data.message}`);
-});
+      socket.on("chat-message", (data) => {
+        appendMessage(`${data.userName}: ${data.message}`);
+      });
 
-socket.on('user-connected', userName => {
-  appendMessage(`${userName} connected`);
-});
+      socket.on("user-connected", (userName) => {
+        appendMessage(`${userName} connected`);
+      });
 
-socket.on('user-disconnected', userName => {
-  appendMessage(`${userName} disconnected`);
-});
+      socket.on("user-disconnected", (userName) => {
+        appendMessage(`${userName} disconnected`);
+      });
 
-messageForm.addEventListener('submit', event => {
-  event.preventDefault();
-  const message = messageInput.value;
-  appendMessage(`You: ${message}`)
-  socket.emit('send-chat-message', message);
-  messageInput.value = '';
-})
-
-
-  </script>
-</body>
+      messageForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const message = messageInput.value;
+        appendMessage(`You: ${message}`);
+        socket.emit("send-chat-message", message);
+        messageInput.value = "";
+      });
+    </script>
+  </body>
 </html>
