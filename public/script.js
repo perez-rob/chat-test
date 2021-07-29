@@ -1,9 +1,10 @@
 // const io = require("socket.io-client");
-const socket = io('http://localhost:3000');
+// const socket = io('http://localhost:3000');
+const socket = io();
 const messageForm = document.getElementById('send-container');
 const messageInput = document.getElementById('message-input');
 const messageContainer = document.getElementById('message-container');
-
+console.log('TEST')
 const userName = prompt('What is your name?');
 appendMessage('You Joined Chat');
 socket.emit('new-user', userName)
