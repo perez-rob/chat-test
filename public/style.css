@@ -29,6 +29,7 @@ body {
 #message-input {
   width: 250px;
   height: 75px;
+  resize: none;
 }
 
 #send-button {

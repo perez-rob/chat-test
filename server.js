@@ -19,6 +19,13 @@ const io = socketIO(server);
 let users = {};
 let userName;
 
+var io2 = require("socket.io").listen(server);
+
+io2.sockets.on("connection", function (socket) {
+  var address = socket.handshake.address;
+  console.log("New connection from " + address.address + ":" + address.port);
+});
+
 io.on("connection", (socket) => {
   socket.on("new-user", (userName) => {
     users[socket.id] = userName;
