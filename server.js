@@ -19,15 +19,12 @@ const io = socketIO(server);
 let users = {};
 let userName;
 
-var io2 = require("socket.io").listen(server);
-
-io2.sockets.on("connection", function (socket) {
-  var address = socket.handshake.address;
-  console.log("New connection from " + address.address + ":" + address.port);
-});
-
 io.on("connection", (socket) => {
+  console.log("New connection 1 from " + socket.handshake.address);
+
   socket.on("new-user", (userName) => {
+    console.log("New connection 2 from " + socket.handshake.address);
+
     users[socket.id] = userName;
     socket.broadcast.emit("user-connected", userName);
   });
