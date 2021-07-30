@@ -20,10 +20,10 @@ let users = {};
 let userName;
 
 io.on("connection", (socket) => {
-  console.log("New connection 1 from " + socket.handshake.address);
+  console.log("New connection 1 from " + socket.handshake.address.address);
 
   socket.on("new-user", (userName) => {
-    console.log("New connection 2 from " + socket.handshake.address);
+    console.log("New connection 2 from " + socket.handshake.address.PORT);
 
     users[socket.id] = userName;
     socket.broadcast.emit("user-connected", userName);
